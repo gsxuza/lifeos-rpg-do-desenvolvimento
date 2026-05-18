@@ -142,39 +142,53 @@ export default function Financas() {
         {activeTab === 'histórico' && (
           <div>
             <SectionHeader title="Transações Recentes" accentColor="orange" />
-            <div className="space-y-2">
-              {(transactions.length > 0 ? transactions : [
-                { id: 1, description: 'iFood', category: 'alimentacao', type: 'expense', amount: 45.9, date: '2026-05-18' },
-                { id: 2, description: 'Salário', category: 'salario', type: 'income', amount: 8500, date: '2026-05-15' },
-                { id: 3, description: 'Spotify', category: 'lazer', type: 'expense', amount: 21.9, date: '2026-05-14' },
-                { id: 4, description: 'Freelance React', category: 'freelance', type: 'income', amount: 1500, date: '2026-05-12' },
-                { id: 5, description: 'Academia', category: 'saude', type: 'expense', amount: 99.9, date: '2026-05-10' },
-              ]).map((tx, i) => (
-                <motion.div
-                  key={tx.id || i}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card"
-                >
-                  <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg bg-secondary">
-                    {categoryIcons[tx.category] || '📦'}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-foreground truncate">{tx.description}</p>
-                    <p className="text-[10px] text-muted-foreground">{tx.category} · {tx.date}</p>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {tx.type === 'income'
-                      ? <ArrowUpCircle size={13} className="text-neon-green" />
-                      : <ArrowDownCircle size={13} className="text-destructive" />}
-                    <span className={`text-xs font-bold font-rajdhani ${tx.type === 'income' ? 'text-neon-green' : 'text-destructive'}`}>
-                      {tx.type === 'income' ? '+' : '-'}R$ {Number(tx.amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            {transactions.length === 0 ? (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                className="rounded-xl p-6 text-center"
+                style={{ background: 'rgb(249 115 22 / 0.04)', border: '1px dashed rgb(249 115 22 / 0.2)' }}>
+                <div className="text-3xl mb-3">📭</div>
+                <p className="text-sm font-semibold font-rajdhani text-foreground mb-1">Nenhuma transação ainda</p>
+                <p className="text-[11px]" style={{ color: '#A0A5B5' }}>
+                  Use o botão <span style={{ color: '#00E5FF' }}>Lançar</span> para adicionar manualmente ou conecte seu banco na aba <span style={{ color: '#39FF14' }}>Sync</span>.
+                </p>
+              </motion.div>
+            ) : (
+              <div className="space-y-2">
+                {transactions.map((tx, i) => (
+                  <motion.div
+                    key={tx.id}
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="flex items-center gap-3 p-3 rounded-xl border border-border bg-card"
+                  >
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center text-lg bg-secondary">
+                      {categoryIcons[tx.category] || '📦'}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium text-foreground truncate">{tx.description}</p>
+                      <p className="text-[10px] text-muted-foreground">{tx.category} · {tx.date}</p>
+                    </div>
+                    <div className="flex flex-col items-end gap-0.5">
+                      <div className="flex items-center gap-1">
+                        {tx.type === 'income'
+                          ? <ArrowUpCircle size={13} className="text-neon-green" />
+                          : <ArrowDownCircle size={13} className="text-destructive" />}
+                        <span className={`text-xs font-bold font-rajdhani ${tx.type === 'income' ? 'text-neon-green' : 'text-destructive'}`}>
+                          {tx.type === 'income' ? '+' : '-'}R$ {Number(tx.amount).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                      {tx.xp_awarded !== 0 && (
+                        <span className="text-[10px] font-rajdhani"
+                          style={{ color: tx.xp_awarded > 0 ? '#39FF14' : '#f97316' }}>
+                          {tx.xp_awarded > 0 ? `+${tx.xp_awarded}` : tx.xp_awarded} XP
+                        </span>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
