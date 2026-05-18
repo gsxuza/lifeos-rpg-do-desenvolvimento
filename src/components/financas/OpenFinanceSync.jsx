@@ -35,6 +35,11 @@ export default function OpenFinanceSync({ profile, onSyncComplete }) {
     setError(null);
     try {
       const res = await base44.functions.invoke('openFinanceConnect', {});
+      if (res.data?.error) {
+        setError(res.data.error);
+        setLoading(false);
+        return;
+      }
       const { connectToken } = res.data;
 
       // Open the Pluggy Widget in a popup
