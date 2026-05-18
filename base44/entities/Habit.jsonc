@@ -1,0 +1,62 @@
+{
+  "name": "Habit",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "manha",
+        "tarde",
+        "noite",
+        "dia_todo"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "check",
+        "counter",
+        "timer"
+      ]
+    },
+    "target": {
+      "type": "number",
+      "default": 1
+    },
+    "unit": {
+      "type": "string"
+    },
+    "xp_reward": {
+      "type": "number",
+      "default": 20
+    },
+    "streak": {
+      "type": "number",
+      "default": 0
+    },
+    "completed_today": {
+      "type": "boolean",
+      "default": false
+    },
+    "current_value": {
+      "type": "number",
+      "default": 0
+    },
+    "color": {
+      "type": "string"
+    },
+    "skill_tag": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "category"
+  ]
+}

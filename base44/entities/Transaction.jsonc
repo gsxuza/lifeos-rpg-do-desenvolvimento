@@ -1,0 +1,58 @@
+{
+  "name": "Transaction",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "income",
+        "expense"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "alimentacao",
+        "transporte",
+        "lazer",
+        "saude",
+        "educacao",
+        "investimento",
+        "salario",
+        "freelance",
+        "outros"
+      ]
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "account": {
+      "type": "string",
+      "enum": [
+        "Nubank",
+        "Bradesco",
+        "Ita\u00fa",
+        "XP",
+        "Cash"
+      ]
+    },
+    "xp_awarded": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "description",
+    "amount",
+    "type",
+    "category",
+    "date"
+  ]
+}

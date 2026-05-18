@@ -1,0 +1,60 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "backlog",
+        "doing",
+        "review",
+        "done"
+      ],
+      "default": "backlog"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "default": "medium"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "profissional",
+        "pessoal",
+        "financeiro",
+        "aprendizado"
+      ]
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date"
+    },
+    "xp_reward": {
+      "type": "number",
+      "default": 100
+    },
+    "skill_tag": {
+      "type": "string"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "title",
+    "status"
+  ]
+}

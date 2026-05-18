@@ -1,0 +1,61 @@
+{
+  "name": "Quest",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "daily",
+        "weekly",
+        "special"
+      ]
+    },
+    "pillar": {
+      "type": "string",
+      "enum": [
+        "financeiro",
+        "profissional",
+        "pessoal"
+      ]
+    },
+    "xp_reward": {
+      "type": "number",
+      "default": 150
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "completed",
+        "failed"
+      ],
+      "default": "active"
+    },
+    "progress": {
+      "type": "number",
+      "default": 0
+    },
+    "target": {
+      "type": "number",
+      "default": 1
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "icon": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "type",
+    "pillar"
+  ]
+}

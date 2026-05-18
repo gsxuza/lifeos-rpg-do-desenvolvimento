@@ -1,0 +1,43 @@
+{
+  "name": "DiaryEntry",
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "string"
+    },
+    "mood": {
+      "type": "string",
+      "enum": [
+        "excelente",
+        "bom",
+        "neutro",
+        "ruim",
+        "pessimo"
+      ]
+    },
+    "mood_score": {
+      "type": "number"
+    },
+    "energy_level": {
+      "type": "number"
+    },
+    "ai_insight": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "content",
+    "mood",
+    "date"
+  ]
+}
