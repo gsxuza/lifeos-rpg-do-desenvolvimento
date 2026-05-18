@@ -1,0 +1,60 @@
+{
+  "name": "CalendarEvent",
+  "type": "object",
+  "properties": {
+    "external_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "google_calendar",
+        "outlook",
+        "manual"
+      ],
+      "default": "manual"
+    },
+    "converted_to_quest": {
+      "type": "boolean",
+      "default": false
+    },
+    "quest_id": {
+      "type": "string"
+    },
+    "xp_reward": {
+      "type": "number",
+      "default": 75
+    },
+    "pillar": {
+      "type": "string",
+      "enum": [
+        "profissional",
+        "pessoal",
+        "financeiro"
+      ],
+      "default": "profissional"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "title",
+    "start_time"
+  ]
+}

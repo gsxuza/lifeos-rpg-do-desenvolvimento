@@ -1,0 +1,51 @@
+{
+  "name": "Notification",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "finance_alert",
+        "habit_reminder",
+        "morning_brief",
+        "calendar_quest",
+        "level_up",
+        "achievement"
+      ]
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "urgent",
+        "normal",
+        "info"
+      ],
+      "default": "normal"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
+    },
+    "icon": {
+      "type": "string"
+    },
+    "action_url": {
+      "type": "string"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "title",
+    "body",
+    "type"
+  ]
+}

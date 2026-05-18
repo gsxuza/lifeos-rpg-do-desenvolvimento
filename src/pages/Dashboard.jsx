@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Settings, Bell } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import CharacterCard from '../components/dashboard/CharacterCard';
 import AICommandCenter from '../components/dashboard/AICommandCenter';
 import DailyQuests from '../components/dashboard/DailyQuests';
 import EnergyBurnout from '../components/dashboard/EnergyBurnout';
+import NotificationCenter from '../components/dashboard/NotificationCenter';
 import SectionHeader from '../components/shared/SectionHeader';
 
 export default function Dashboard() {
@@ -13,9 +14,7 @@ export default function Dashboard() {
   const [quests, setQuests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useEffect(() => { loadData(); }, []);
 
   const loadData = async () => {
     try {
@@ -61,58 +60,48 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-          className="w-8 h-8 border-2 border-neon-cyan/30 border-t-neon-cyan rounded-full"
-        />
+      <div className="flex items-center justify-center h-screen" style={{ background: '#0D0E12' }}>
+        <div className="flex flex-col items-center gap-3">
+          <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            className="w-8 h-8 rounded-full border-2" style={{ borderColor: 'rgb(0 229 255 / 0.2)', borderTopColor: '#00E5FF' }} />
+          <p className="text-[11px] font-rajdhani uppercase tracking-widest" style={{ color: '#A0A5B5' }}>Carregando...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen px-4 pt-4 pb-6">
+    <div className="min-h-screen px-4 pt-4 pb-6" style={{ background: '#0D0E12' }}>
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-rajdhani">LifeOS</p>
-          <h1 className="text-xl font-bold font-rajdhani text-foreground">Sede do Herói</h1>
+          <p className="text-[11px] uppercase tracking-widest font-rajdhani" style={{ color: '#A0A5B5' }}>LifeOS · v2.0</p>
+          <h1 className="text-xl font-bold font-space" style={{ color: '#FFFFFF' }}>
+            Sede do <span style={{ color: '#00E5FF' }}>Herói</span>
+          </h1>
         </div>
         <div className="flex items-center gap-2">
-          <button className="w-8 h-8 rounded-lg border border-border flex items-center justify-center bg-secondary">
-            <Bell size={14} className="text-muted-foreground" />
-          </button>
-          <button className="w-8 h-8 rounded-lg border border-border flex items-center justify-center bg-secondary">
-            <Settings size={14} className="text-muted-foreground" />
+          <NotificationCenter />
+          <button className="w-8 h-8 rounded-lg border flex items-center justify-center" style={{ borderColor: '#252730', background: '#161820' }}>
+            <Settings size={14} style={{ color: '#A0A5B5' }} />
           </button>
         </div>
       </div>
 
       <div className="space-y-5">
-        {/* Character Card */}
         <CharacterCard profile={profile} />
 
-        {/* AI Command Center */}
         <div>
-          <SectionHeader title="Central IA" subtitle="Briefing matinal" accentColor="cyan" />
+          <SectionHeader title="Central IA" subtitle="Briefing personalizado" accentColor="cyan" />
           <AICommandCenter profile={profile} />
         </div>
 
-        {/* Daily Quests */}
         <div>
-          <SectionHeader
-            title="Missões"
-            subtitle="Hoje e esta semana"
-            accentColor="purple"
-            action={
-              <span className="text-[11px] text-neon-purple font-rajdhani cursor-pointer">Ver todas →</span>
-            }
-          />
+          <SectionHeader title="Missões" subtitle="Hoje e esta semana" accentColor="purple"
+            action={<span className="text-[11px] font-rajdhani cursor-pointer" style={{ color: '#BD00FF' }}>Ver todas →</span>} />
           <DailyQuests quests={quests} onQuestComplete={handleQuestComplete} />
         </div>
 
-        {/* Energy */}
         <EnergyBurnout energy={profile?.energy || 80} />
       </div>
     </div>

@@ -5,6 +5,7 @@ import { base44 } from '@/api/base44Client';
 import BalanceCard from '../components/financas/BalanceCard';
 import SpendingChart from '../components/financas/SpendingChart';
 import InvestmentAI from '../components/financas/InvestmentAI';
+import OpenFinanceSync from '../components/financas/OpenFinanceSync';
 import SectionHeader from '../components/shared/SectionHeader';
 
 const categoryIcons = {
@@ -30,15 +31,20 @@ export default function Financas() {
     setForm({ description: '', amount: '', type: 'expense', category: 'outros', date: new Date().toISOString().split('T')[0], account: 'Nubank' });
   };
 
-  const tabs = ['overview', 'histórico', 'investir'];
+  const [profile, setProfile] = useState(null);
+  const tabs = ['overview', 'sync', 'histórico', 'investir'];
+
+  useEffect(() => {
+    base44.entities.UserProfile.list().then(p => { if (p.length > 0) setProfile(p[0]); }).catch(() => {});
+  }, []);
 
   return (
-    <div className="min-h-screen px-4 pt-4 pb-6">
+    <div className="min-h-screen px-4 pt-4 pb-6" style={{ background: '#0D0E12' }}>
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-rajdhani">Pilar Financeiro</p>
-          <h1 className="text-xl font-bold font-rajdhani text-foreground">Open Finance</h1>
+          <p className="text-[11px] uppercase tracking-widest font-rajdhani" style={{ color: '#A0A5B5' }}>Pilar Financeiro</p>
+          <h1 className="text-xl font-bold font-space" style={{ color: '#FFFFFF' }}>Open <span style={{ color: '#39FF14' }}>Finance</span></h1>
         </div>
         <button
           onClick={() => setShowAdd(s => !s)}
@@ -124,6 +130,13 @@ export default function Financas() {
               <SpendingChart />
             </div>
           </>
+        )}
+
+        {activeTab === 'sync' && (
+          <div>
+            <SectionHeader title="Open Finance" subtitle="Sincronização automática de contas" accentColor="green" />
+            <OpenFinanceSync profile={profile} onSyncComplete={() => {}} />
+          </div>
         )}
 
         {activeTab === 'histórico' && (

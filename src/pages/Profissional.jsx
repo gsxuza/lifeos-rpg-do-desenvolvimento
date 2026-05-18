@@ -5,6 +5,7 @@ import { base44 } from '@/api/base44Client';
 import KanbanBoard from '../components/profissional/KanbanBoard';
 import SkillRadar from '../components/profissional/SkillRadar';
 import PomodoroTimer from '../components/profissional/PomodoroTimer';
+import CalendarSync from '../components/profissional/CalendarSync';
 import SectionHeader from '../components/shared/SectionHeader';
 
 export default function Profissional() {
@@ -58,14 +59,14 @@ export default function Profissional() {
     }
   };
 
-  const tabs = ['kanban', 'skills', 'foco'];
+  const tabs = ['kanban', 'agenda', 'skills', 'foco'];
 
   return (
-    <div className="min-h-screen px-4 pt-4 pb-6">
+    <div className="min-h-screen px-4 pt-4 pb-6" style={{ background: '#0D0E12' }}>
       <div className="flex items-center justify-between mb-5">
         <div>
-          <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-rajdhani">Pilar Profissional</p>
-          <h1 className="text-xl font-bold font-rajdhani text-foreground">Hub de Carreira</h1>
+          <p className="text-[11px] uppercase tracking-widest font-rajdhani" style={{ color: '#A0A5B5' }}>Pilar Profissional</p>
+          <h1 className="text-xl font-bold font-space" style={{ color: '#FFFFFF' }}>Hub de <span style={{ color: '#00E5FF' }}>Carreira</span></h1>
         </div>
         <button
           onClick={() => setShowAdd(s => !s)}
@@ -117,7 +118,7 @@ export default function Profissional() {
             className={`flex-1 py-1.5 rounded-lg text-[11px] font-semibold font-rajdhani uppercase tracking-wider transition-all ${
               activeTab === t ? 'bg-card text-neon-purple border border-neon-purple/20' : 'text-muted-foreground'
             }`}>
-            {t === 'kanban' ? 'Projetos' : t === 'skills' ? 'Skills' : 'Foco'}
+            {t === 'kanban' ? 'Projetos' : t === 'agenda' ? 'Agenda' : t === 'skills' ? 'Skills' : 'Foco'}
           </button>
         ))}
       </div>
@@ -133,6 +134,12 @@ export default function Profissional() {
           <div>
             <SectionHeader title="Matriz de Competências" subtitle="Evolui com cada conquista" accentColor="cyan" />
             <SkillRadar skills={profile?.skills} />
+          </div>
+        )}
+        {activeTab === 'agenda' && (
+          <div>
+            <SectionHeader title="Calendário → Quests" subtitle="Eventos viram missões com XP" accentColor="cyan" />
+            <CalendarSync profile={profile} />
           </div>
         )}
         {activeTab === 'foco' && (
