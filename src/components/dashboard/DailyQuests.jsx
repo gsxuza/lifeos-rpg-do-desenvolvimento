@@ -9,15 +9,8 @@ const pillarColors = {
   pessoal: { text: 'text-neon-green', bg: 'bg-neon-green/10', border: 'border-neon-green/20' },
 };
 
-const defaultQuests = [
-  { id: 'd1', title: 'Fique 24h sem gastos supérfluos', type: 'daily', pillar: 'financeiro', xp_reward: 150, status: 'active', progress: 0, target: 1, icon: '💰' },
-  { id: 'd2', title: 'Estude 45 min de uma nova tecnologia', type: 'daily', pillar: 'profissional', xp_reward: 100, status: 'active', progress: 0, target: 1, icon: '💻' },
-  { id: 'd3', title: 'Medite por 10 minutos', type: 'daily', pillar: 'pessoal', xp_reward: 75, status: 'completed', progress: 1, target: 1, icon: '🧘' },
-  { id: 'w1', title: 'Complete 3 sessões de Pomodoro', type: 'weekly', pillar: 'profissional', xp_reward: 300, status: 'active', progress: 1, target: 3, icon: '🍅' },
-];
-
 export default function DailyQuests({ quests, onQuestComplete }) {
-  const displayQuests = (quests && quests.length > 0) ? quests : defaultQuests;
+  const displayQuests = (quests && quests.length > 0) ? quests : [];
   const [completing, setCompleting] = useState(null);
 
   const handleComplete = async (quest) => {
@@ -28,6 +21,23 @@ export default function DailyQuests({ quests, onQuestComplete }) {
       if (onQuestComplete) onQuestComplete(quest);
     }, 600);
   };
+
+  if (displayQuests.length === 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="rounded-xl p-6 text-center"
+        style={{ background: 'rgb(189 0 255 / 0.04)', border: '1px dashed rgb(189 0 255 / 0.2)' }}
+      >
+        <div className="text-3xl mb-3">⚔️</div>
+        <p className="text-sm font-semibold font-rajdhani text-foreground mb-1">Nenhuma missão ativa</p>
+        <p className="text-[11px] leading-relaxed" style={{ color: '#A0A5B5' }}>
+          A IA irá gerar sua <span style={{ color: '#BD00FF' }}>Questline Diária</span> automaticamente esta noite, baseada no seu perfil e histórico real.
+        </p>
+      </motion.div>
+    );
+  }
 
   return (
     <div className="space-y-2">

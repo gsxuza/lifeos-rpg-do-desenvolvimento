@@ -194,8 +194,8 @@ export default function Financas() {
 
         {activeTab === 'investir' && (
           <div>
-            <SectionHeader title="Sugestões de IA" subtitle="Baseadas no seu perfil" accentColor="green" />
-            <InvestmentAI riskProfile="Moderado" />
+            <SectionHeader title="Sugestões de IA" subtitle="Baseadas no seu perfil real" accentColor="green" />
+            <InvestmentAI riskProfile={profile?.risk_profile} transactions={transactions} />
           </div>
         )}
       </div>
